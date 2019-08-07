@@ -1,0 +1,11 @@
+C:\Users\Tanay's PC\Desktop\sudokuChecker\obj\Debug\netcoreapp2.2\sudokuChecker.csprojAssemblyReference.cache
+C:\Users\Tanay's PC\Desktop\sudokuChecker\obj\Debug\netcoreapp2.2\sudokuChecker.csproj.CoreCompileInputs.cache
+C:\Users\Tanay's PC\Desktop\sudokuChecker\obj\Debug\netcoreapp2.2\sudokuChecker.AssemblyInfoInputs.cache
+C:\Users\Tanay's PC\Desktop\sudokuChecker\obj\Debug\netcoreapp2.2\sudokuChecker.AssemblyInfo.cs
+C:\Users\Tanay's PC\Desktop\sudokuChecker\bin\Debug\netcoreapp2.2\sudokuChecker.deps.json
+C:\Users\Tanay's PC\Desktop\sudokuChecker\bin\Debug\netcoreapp2.2\sudokuChecker.runtimeconfig.json
+C:\Users\Tanay's PC\Desktop\sudokuChecker\bin\Debug\netcoreapp2.2\sudokuChecker.runtimeconfig.dev.json
+C:\Users\Tanay's PC\Desktop\sudokuChecker\bin\Debug\netcoreapp2.2\sudokuChecker.dll
+C:\Users\Tanay's PC\Desktop\sudokuChecker\bin\Debug\netcoreapp2.2\sudokuChecker.pdb
+C:\Users\Tanay's PC\Desktop\sudokuChecker\obj\Debug\netcoreapp2.2\sudokuChecker.dll
+C:\Users\Tanay's PC\Desktop\sudokuChecker\obj\Debug\netcoreapp2.2\sudokuChecker.pdb
