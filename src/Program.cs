@@ -69,20 +69,27 @@ namespace sudokuChecker
                 new int[] {0,1,5,  2,8,7,  6,3,4}
             };
 
-            SudokuChecker(goodSudoku1);
-
-            SudokuChecker(goodSudoku2);
-
-            SudokuChecker(badSudoku1);
-
-            SudokuChecker(badSudoku2);
-
-            SudokuChecker(badSudoku3);
-
+            var tests = new List<int[][]>()
+            {
+                goodSudoku1, goodSudoku2, badSudoku1, badSudoku2, badSudoku3
+            };
+                
+            foreach(var test in tests)
+            {
+                if (SudokuChecker(test) == true)
+                {
+                    Console.WriteLine("Good Sudoku");
+                }
+                else
+                {
+                    Console.WriteLine("Bad Sudoku");
+                }
+            }
+           
 
             // The method
             bool SudokuChecker(int[][] grid)
-             {
+            {
                 // Variables:
                 int lenGrid = grid.Length;
 
@@ -92,36 +99,10 @@ namespace sudokuChecker
 
                 int boxSize = Convert.ToInt32(sqrLength);
 
-                // RULES FOR VALIDATION:
-                foreach (var row in grid)
-                {
-                    foreach(var num in row)
-                    {
-                        if (num == 0)
-                        {
-                            Console.WriteLine("Bad Sudoku");
-                            return false;                            
-                        }
-                        
-                    }
-                }
+                var maxVal = grid.Max(x => x.Max());
 
-                // Checks W x L is same
-                foreach (var i in grid)
-                {
-                    if (i.Length != lenGrid)
-                    {
-                        Console.WriteLine("Bad Sudoku");
-                        return false;
-                    }
-                }
+                var minVal = grid.Min(x => x.Min());
 
-                //Checks N is a squarable number
-                if (sqrLength != roundedSqrLength)
-                {
-                    Console.WriteLine("Bad Sudoku");
-                    return false;
-                }
 
                 // FUNCTION TO CHECK FOR DUPLICATES: 
                 bool DupCheckerArray(IEnumerable<int> arrayList)
@@ -138,56 +119,79 @@ namespace sudokuChecker
                         vals.Add(s);
                     }
                     return returnValue;
+
                 }
 
-                foreach (var row in grid)
+                // RULES FOR VALIDATION:
+
+                // Checks 1..N
+                if (minVal != 1 || maxVal != lenGrid)
                 {
-                    if (DupCheckerArray(row))
+                    return false;
+                }
+
+                // Checks W x L is same
+                foreach (var i in grid)
+                {
+                    if (i.Length != lenGrid)
                     {
-                        Console.WriteLine("Bad Sudoku");
                         return false;
                     }
                 }
 
-                
-                foreach (var col in Helper.Range(lenGrid))                         
-                {                  
+                //Checks N is a squarable number
+                if (sqrLength != roundedSqrLength)
+                {
+                    return false;
+                }
+
+
+                foreach (var row in grid)
+                {
+                    if (DupCheckerArray(row))
+                    {                        
+                        return false;
+                    }
+                }
+
+
+                foreach (var col in Helper.Range(lenGrid))
+                {
                     var column = new List<int>();
-                    foreach (var row in Helper.Range(lenGrid))                     
+                    foreach (var row in Helper.Range(lenGrid))
                     {
                         int val = grid[row][col];
                         column.Add(val);
                     }
 
                     if (DupCheckerArray(column))
-                    {
-                        Console.WriteLine("Bad Sudoku");
+                    {                       
                         return false;
                     }
                 }
 
-                    foreach (int i in Helper.Range(boxSize, lenGrid + 1, boxSize))
+                foreach (int i in Helper.Range(boxSize, lenGrid + 1, boxSize))
+                {
+                    foreach (int j in Helper.Range(boxSize, lenGrid + 1, boxSize))
                     {
-                        foreach (int j in Helper.Range(boxSize, lenGrid + 1, boxSize))
+                        var box = new List<int>();
+                        //foreach (int[] row in gridy[i - boxSize..i])
+                        foreach (int[] row in grid.Skip(i - boxSize).Take(boxSize))
                         {
-                            var box = new List<int>();
-                            //foreach (int[] row in gridy[i - boxSize..i])
-                            foreach (int[] row in grid.Skip(i - boxSize).Take(boxSize))
-                            {
-                                box.AddRange(row.Skip(j - boxSize).Take(boxSize));                          
-                            }
-                            if (DupCheckerArray(box))
-                            {
-                                Console.WriteLine("Bad Sudoku");
-                                return false;
-                            }
+                            box.AddRange(row.Skip(j - boxSize).Take(boxSize));
+                        }
+                        if (DupCheckerArray(box))
+                        {                         
+                            return false;
                         }
                     }
-                   
-                Console.WriteLine("Good Sudoku");
+                }
+
                 return true;
 
-             }
+            }
         }
     }
 }
+
+
