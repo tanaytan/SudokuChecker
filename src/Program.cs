@@ -90,7 +90,6 @@ namespace sudokuChecker
                 Console.WriteLine("Bad Sudoku");
             }
 
-
             // The method
             bool SudokuChecker(int[][] grid)
              {
