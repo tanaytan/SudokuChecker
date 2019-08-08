@@ -83,8 +83,17 @@ namespace sudokuChecker
             // The method
             bool SudokuChecker(int[][] grid)
              {
+                // Variables:
+                int lenGrid = grid.Length;
+
+                var sqrLength = Math.Pow(lenGrid, 0.5);
+
+                var roundedSqrLength = Math.Round(sqrLength);
+
+                int boxSize = Convert.ToInt32(sqrLength);
+
                 // RULES FOR VALIDATION:
-                foreach(var row in grid)
+                foreach (var row in grid)
                 {
                     foreach(var num in row)
                     {
@@ -100,7 +109,7 @@ namespace sudokuChecker
                 // Checks W x L is same
                 foreach (var i in grid)
                 {
-                    if (i.Length != grid.Length)
+                    if (i.Length != lenGrid)
                     {
                         Console.WriteLine("Bad Sudoku");
                         return false;
@@ -108,9 +117,6 @@ namespace sudokuChecker
                 }
 
                 //Checks N is a squarable number
-                var sqrLength = Math.Pow(grid.Length, 0.5);
-                var roundedSqrLength = Math.Round(sqrLength);
-
                 if (sqrLength != roundedSqrLength)
                 {
                     Console.WriteLine("Bad Sudoku");
@@ -143,11 +149,11 @@ namespace sudokuChecker
                     }
                 }
 
-                foreach (var col in Helper.Range(grid.Length))                         
-                {
-                    int sideSize = grid.Length;
+                
+                foreach (var col in Helper.Range(lenGrid))                         
+                {                  
                     var column = new List<int>();
-                    foreach (var row in Helper.Range(grid.Length))                     
+                    foreach (var row in Helper.Range(lenGrid))                     
                     {
                         int val = grid[row][col];
                         column.Add(val);
@@ -160,19 +166,13 @@ namespace sudokuChecker
                     }
                 }
 
-                
-                bool BoxCheck(int[][] gridy)
-                {
-                    int boxSize = Convert.ToInt32(Math.Pow(gridy.Length, 0.5));
-                    int sideSize = gridy.Length;
-
-                    foreach (int i in Helper.Range(boxSize, sideSize + 1, boxSize))
+                    foreach (int i in Helper.Range(boxSize, lenGrid + 1, boxSize))
                     {
-                        foreach (int j in Helper.Range(boxSize, sideSize + 1, boxSize))
+                        foreach (int j in Helper.Range(boxSize, lenGrid + 1, boxSize))
                         {
                             var box = new List<int>();
                             //foreach (int[] row in gridy[i - boxSize..i])
-                            foreach (int[] row in gridy.Skip(i - boxSize).Take(boxSize))
+                            foreach (int[] row in grid.Skip(i - boxSize).Take(boxSize))
                             {
                                 box.AddRange(row.Skip(j - boxSize).Take(boxSize));                          
                             }
@@ -183,14 +183,9 @@ namespace sudokuChecker
                             }
                         }
                     }
-                    return true;
-                }
-
-                BoxCheck(grid);
-
+                   
                 Console.WriteLine("Good Sudoku");
                 return true;
-
 
              }
         }
