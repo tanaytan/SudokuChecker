@@ -90,8 +90,10 @@ namespace sudokuChecker
                     {
                         if (num == 0)
                         {
-                            return false;
+                            Console.WriteLine("Bad Sudoku");
+                            return false;                            
                         }
+                        
                     }
                 }
 
@@ -100,6 +102,7 @@ namespace sudokuChecker
                 {
                     if (i.Length != grid.Length)
                     {
+                        Console.WriteLine("Bad Sudoku");
                         return false;
                     }
                 }
@@ -110,6 +113,7 @@ namespace sudokuChecker
 
                 if (sqrLength != roundedSqrLength)
                 {
+                    Console.WriteLine("Bad Sudoku");
                     return false;
                 }
 
@@ -134,6 +138,7 @@ namespace sudokuChecker
                 {
                     if (DupCheckerArray(row))
                     {
+                        Console.WriteLine("Bad Sudoku");
                         return false;
                     }
                 }
@@ -150,6 +155,7 @@ namespace sudokuChecker
 
                     if (DupCheckerArray(column))
                     {
+                        Console.WriteLine("Bad Sudoku");
                         return false;
                     }
                 }
@@ -158,7 +164,7 @@ namespace sudokuChecker
                 bool BoxCheck(int[][] gridy)
                 {
                     int boxSize = Convert.ToInt32(Math.Pow(gridy.Length, 0.5));
-                    int sideSize = Convert.ToInt32(Math.Pow(gridy.Length, 2));
+                    int sideSize = gridy.Length;
 
                     foreach (int i in Helper.Range(boxSize, sideSize + 1, boxSize))
                     {
@@ -166,12 +172,13 @@ namespace sudokuChecker
                         {
                             var box = new List<int>();
                             //foreach (int[] row in gridy[i - boxSize..i])
-                            foreach (int[] row in gridy.Skip(i - boxSize).Take(i))
+                            foreach (int[] row in gridy.Skip(i - boxSize).Take(boxSize))
                             {
-                                box.AddRange(row.Skip(j - boxSize).Take(j));                          
+                                box.AddRange(row.Skip(j - boxSize).Take(boxSize));                          
                             }
                             if (DupCheckerArray(box))
                             {
+                                Console.WriteLine("Bad Sudoku");
                                 return false;
                             }
                         }
