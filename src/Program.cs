@@ -54,41 +54,14 @@ namespace sudokuChecker
                 new int[] {1,2,3,4},
                 new int[] {1}
             };
-            if(SudokuChecker(goodSudoku1))
-            {
-                Console.WriteLine("Good Sudoku");
-            }
-            else
-            {
-                Console.WriteLine("Bad Sudoku");
-            }
+            SudokuChecker(goodSudoku1);
 
-            if(SudokuChecker(goodSudoku2))
-            {
-                Console.WriteLine("Good Sudoku");
-            }
-            else
-            {
-                Console.WriteLine("Bad Sudoku");
-            }
+            SudokuChecker(goodSudoku2);
 
-            if (SudokuChecker(badSudoku1))
-            {
-                Console.WriteLine("Good Sudoku");
-            }
-            else
-            {
-                Console.WriteLine("Bad Sudoku");
-            }
+            SudokuChecker(badSudoku1);
 
-            if(SudokuChecker(badSudoku2))
-            {
-                Console.WriteLine("Good Sudoku");
-            }
-            else
-            {
-                Console.WriteLine("Bad Sudoku");
-            }
+            SudokuChecker(badSudoku2);
+            
 
             // The method
             bool SudokuChecker(int[][] grid)
@@ -109,7 +82,10 @@ namespace sudokuChecker
                 }
 
                 //Checks N is a squarable number
-                if ((Math.Pow(grid.Length, 0.5) != (int)(Math.Pow(grid.Length, 0.5))))
+                var sqrLength = Math.Pow(grid.Length, 0.5);
+                var roundedSqrLength = Math.Round(Math.Pow(grid.Length, 0.5));
+
+                if (sqrLength != roundedSqrLength)
                 {
                     return false;
                 }
@@ -179,8 +155,10 @@ namespace sudokuChecker
                     }
                     return true;
                 }
+
                 BoxCheck(grid);
-                
+
+                Console.WriteLine("Good Sudoku");
                 return true;
 
 
