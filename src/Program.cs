@@ -54,6 +54,21 @@ namespace sudokuChecker
                 new int[] {1,2,3,4},
                 new int[] {1}
             };
+
+            int[][] badSudoku3 = {
+                new int[] {7,8,4,  0,5,1,  3,2,6},
+                new int[] {5,3,1,  6,7,2,  8,4,0},
+                new int[] {6,0,2,  4,3,8,  7,5,1},
+
+                new int[] {1,2,8,  7,0,5,  4,6,3},
+                new int[] {3,5,7,  8,4,6,  0,1,2},
+                new int[] {4,6,0,  1,2,3,  5,8,7},
+
+                new int[] {8,7,6,  3,1,4,  2,0,5},
+                new int[] {2,4,3,  5,6,0,  1,7,8},
+                new int[] {0,1,5,  2,8,7,  6,3,4}
+            };
+
             SudokuChecker(goodSudoku1);
 
             SudokuChecker(goodSudoku2);
@@ -61,15 +76,23 @@ namespace sudokuChecker
             SudokuChecker(badSudoku1);
 
             SudokuChecker(badSudoku2);
-            
+
+            SudokuChecker(badSudoku3);
+
 
             // The method
             bool SudokuChecker(int[][] grid)
              {
                 // RULES FOR VALIDATION:
-                if (grid.Length < 1)
+                foreach(var row in grid)
                 {
-                    return false;
+                    foreach(var num in row)
+                    {
+                        if (num == 0)
+                        {
+                            return false;
+                        }
+                    }
                 }
 
                 // Checks W x L is same
@@ -83,7 +106,7 @@ namespace sudokuChecker
 
                 //Checks N is a squarable number
                 var sqrLength = Math.Pow(grid.Length, 0.5);
-                var roundedSqrLength = Math.Round(Math.Pow(grid.Length, 0.5));
+                var roundedSqrLength = Math.Round(sqrLength);
 
                 if (sqrLength != roundedSqrLength)
                 {
